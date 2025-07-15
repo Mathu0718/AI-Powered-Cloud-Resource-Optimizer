@@ -1,0 +1,16 @@
+  GNU nano 7.2                                                              main.yml                                                                        - name: Cloud Auto Cleanup
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Run Python script to fetch latest report
+      command: python3 fetch_cost_report.py
+
+    - name: Notify via email with report
+      command: python3 notify_user.py
+
+    - name: Delete old reports from S3 (if more than 10)
+      command: python3 clean_old_reports.py
+
+    - name: Include EC2 cleanup tasks
+      import_tasks: cleanup.yml

@@ -1,0 +1,32 @@
+---
+- name: Cloud Cleanup Playbook
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Read underutilized report
+      shell: tail -n +2 latest_report.csv
+      register: services
+
+    - name: Check for EC2 service presence in report
+      set_fact:
+        ec2_found: "{{ 'Amazon Elastic Compute Cloud - Compute' in services.stdout }}"
+
+    - name: Get running EC2 instances
+      when: ec2_found
+      community.aws.ec2_instance_info:
+        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+        region: us-east-1
+        filters:
+          instance-state-name: running
+      register: ec2_instances
+
+    - name: Stop idle EC2 instances if EC2 service found and running instances exist
+      when: ec2_found and ec2_instances.instances is defined and (ec2_instances.instances | length) > 0
+      community.aws.ec2_instance:
+        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+        region: us-east-1
+        instance_ids: "{{ ec2_instances.instances | map(attribute='instance_id') | list }}"
+        state: stopped

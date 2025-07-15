@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root & Body Styling */
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  /* Professional Color Palette */
+  color-scheme: light dark;
+  color: #1f2937; /* Dark slate for text */
+  background-color: #f3f4f6; /* Light gray background */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  /* Flex center alignment */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Padding for responsiveness */
+  padding: 2rem;
+
+  /* Smooth background transition */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Heading */
+h1 {
+  font-size: 3rem;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #111827; /* Darker slate for headings */
+  text-align: center;
+}
+
+/* Anchor tags */
+a {
+  font-weight: 600;
+  color: #2563eb; /* Professional blue */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #1e40af; /* Darker blue on hover */
+}
+
+/* Buttons */
+button {
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  padding: 0.75em 1.5em;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #2563eb; /* Blue background */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 2px 6px rgb(37 99 235 / 0.4);
+}
+button:hover {
+  background-color: #1e40af; /* Darker blue */
+  border-color: #1e40af;
+}
+button:focus,
+button:focus-visible {
+  outline: 3px solid #93c5fd; /* Light blue focus ring */
+  outline-offset: 2px;
+}
+
+/* Responsive and container for centering content */
+#root {
+  width: 100%;
+  max-width: 720px;
+  background: white;
+  padding: 2rem 3rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #e5e7eb; /* Light gray text */
+    background-color: #1e293b; /* Dark blue-gray background */
+  }
+
+  body {
+    background-color: #1e293b;
+  }
+
+  h1 {
+    color: #f3f4f6; /* Lighter heading */
+  }
+
+  a {
+    color: #60a5fa; /* Lighter blue */
+  }
+  a:hover {
+    color: #3b82f6; /* Brighter blue */
+  }
+
+  button {
+    background-color: #3b82f6;
+    color: white;
+    box-shadow: 0 2px 6px rgb(59 130 246 / 0.6);
+  }
+  button:hover {
+    background-color: #2563eb;
+    border-color: #2563eb;
+  }
+
+  #root {
+    background: #111827;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+}
